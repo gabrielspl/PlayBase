@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Categorias — PlayBase{% endblock %}
+
+{% block content %}
+<div class="main-content medium">
+
+  <h1 class="section-title">📂 Categorias</h1>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }}" style="margin-bottom:16px;">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <div class="form-panel" style="margin-bottom:32px;">
+    <h2 style="font-size:1.1rem; text-align:left;">Nova categoria</h2>
+    <form method="post" action="{{ url_for('jogos.adicionar_categoria') }}" style="display:flex; gap:10px; align-items:flex-end;">
+      <div class="field-group" style="flex:1;">
+        <label>Nome</label>
+        <input type="text" name="nome" placeholder="ex: RPG, FPS, Aventura..." required>
+      </div>
+      <button type="submit" class="btn-submit" style="margin-top:0; align-self:flex-end;">Adicionar</button>
+    </form>
+  </div>
+
+  <div class="category-list">
+    {% for categoria in categorias %}
+    <div class="category-item">
+      <span class="category-name">{{ categoria.nome }}</span>
+
+      {% if session.get('usuarioLogado') %}
+      <div class="category-edit-form">
+        <form method="post" action="{{ url_for('jogos.editar_categoria', id=categoria.id) }}" style="display:flex; gap:8px; align-items:center;">
+          <input type="text" name="nome" value="{{ categoria.nome }}" required>
+          <button type="submit" class="btn btn-warning">Editar</button>
+        </form>
+        <form method="post" action="{{ url_for('jogos.remover_categoria', id=categoria.id) }}">
+          <button type="submit" class="btn btn-danger">Excluir</button>
+        </form>
+      </div>
+      {% endif %}
+    </div>
+    {% else %}
+    <p class="alert alert-info">Nenhuma categoria cadastrada.</p>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}

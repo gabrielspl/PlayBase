@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}Jogos — PlayBase{% endblock %}
+
+{% block content %}
+<div class="main-content">
+
+  <form method="get" action="{{ url_for('jogos.buscar_jogos') }}" class="search-bar anim-fade-up">
+    <input type="text" name="busca" placeholder="Buscar jogo..." value="{{ termo or '' }}">
+    <button type="submit" class="btn-search">🔍 Buscar</button>
+  </form>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }}" style="margin-bottom:20px;">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  {% if jogos %}
+
+    {# ── CARD DESTAQUE (primeiro jogo) ─────────────────────── #}
+    {% set destaque = jogos[0] %}
+    <div class="card-hero anim-fade-up">
+      <div class="card-hero-img">
+        <img src="/{{ destaque.imagem }}" alt="{{ destaque.nome }}">
+        <div class="card-hero-overlay"></div>
+        <div class="card-tags">
+          {% if destaque.tag_lancamento %}<span class="tag tag-green">🚀 Lançamento</span>{% endif %}
+          {% if destaque.tag_destaque  %}<span class="tag tag-purple">⭐ Destaque</span>{% endif %}
+          {% if destaque.tag_promocao  %}<span class="tag tag-yellow">🔥 Promoção</span>{% endif %}
+        </div>
+      </div>
+      <div class="card-hero-body">
+        <div class="card-hero-label">Em Destaque</div>
+        <div class="card-hero-title">{{ destaque.nome }}</div>
+        <div class="card-hero-meta">
+          <span>{{ destaque.desenvolvedora }}</span>
+          <span class="card-hero-dot">·</span>
+          <span>{{ destaque.genero }}</span>
+          <span class="card-hero-dot">·</span>
+          <span>{{ destaque.dataLancamento }}</span>
+        </div>
+        <p class="card-hero-sinopse">{{ destaque.sinopse }}</p>
+        <div class="card-hero-pills">
+          <span class="card-pill"><strong>Plataformas</strong>{{ destaque.plataformas }}</span>
+          <span class="card-pill"><strong>Cat.</strong>{{ destaque.categoria_nome }}</span>
+        </div>
+        {% if session.get('usuarioLogado') %}
+        <div class="card-hero-actions">
+          <a href="{{ url_for('jogos.editar_jogo', id=destaque.id) }}" class="btn btn-warning">Editar</a>
+          <form action="{{ url_for('jogos.excluir_jogo', id=destaque.id) }}" method="post">
+            <button type="submit" class="btn btn-danger">Excluir</button>
+          </form>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    {# ── GRID DOS DEMAIS JOGOS ──────────────────────────────── #}
+    {% if jogos|length > 1 %}
+    <div class="game-grid stagger" style="margin-top: 28px;">
+      {% for jogo in jogos[1:] %}
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="/{{ jogo.imagem }}" alt="{{ jogo.nome }}">
+          <div class="card-tags">
+            {% if jogo.tag_lancamento %}<span class="tag tag-green">🚀 Lançamento</span>{% endif %}
+            {% if jogo.tag_destaque  %}<span class="tag tag-purple">⭐ Destaque</span>{% endif %}
+            {% if jogo.tag_promocao  %}<span class="tag tag-yellow">🔥 Promoção</span>{% endif %}
+          </div>
+
+          {# Overlay de hover com sinopse #}
+          <div class="card-hover-overlay">
+            <p class="card-hover-sinopse">{{ jogo.sinopse }}</p>
+            {% if session.get('usuarioLogado') %}
+            <div class="card-hover-actions">
+              <a href="{{ url_for('jogos.editar_jogo', id=jogo.id) }}" class="btn btn-warning">Editar</a>
+              <form action="{{ url_for('jogos.excluir_jogo', id=jogo.id) }}" method="post">
+                <button type="submit" class="btn btn-danger">Excluir</button>
+              </form>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="card-title">{{ jogo.nome }}</div>
+          <div class="card-pills">
+            <span class="card-pill"><strong>Dev</strong>{{ jogo.desenvolvedora }}</span>
+            <span class="card-pill"><strong>Data</strong>{{ jogo.dataLancamento }}</span>
+            <span class="card-pill"><strong>Gênero</strong>{{ jogo.genero }}</span>
+            <span class="card-pill"><strong>Plataformas</strong>{{ jogo.plataformas }}</span>
+            <span class="card-pill"><strong>Cat.</strong>{{ jogo.categoria_nome }}</span>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+  {% else %}
+    <div class="empty-state">
+      <p>Nenhum jogo cadastrado ainda.</p>
+    </div>
+  {% endif %}
+
+</div>
+{% endblock %}

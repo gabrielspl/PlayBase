@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Contato — PlayBase{% endblock %}
+
+{% block content %}
+<div class="main-content narrow">
+  <div class="form-panel">
+    <h2>Entre em Contato</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form id="formulario" onsubmit="enviarwhats(event)">
+      <div class="field-group">
+        <label>Nome</label>
+        <input type="text" id="nome" placeholder="Seu nome" required>
+      </div>
+      <div class="field-group">
+        <label>Mensagem</label>
+        <textarea id="mensagem" rows="6" placeholder="Escreva sua mensagem..." required></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Enviar pelo WhatsApp</button>
+    </form>
+  </div>
+</div>
+
+<script>
+function enviarwhats(event) {
+  event.preventDefault();
+  const nome = document.getElementById('nome').value;
+  const mensagem = document.getElementById('mensagem').value;
+  const telefone = '5516994072626';
+  const texto = `Olá! Me chamo ${nome}, ${mensagem}`;
+  window.open(`https://whatsa.me/${telefone}/?t=${encodeURIComponent(texto)}`, '_blank');
+}
+</script>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Esqueci minha senha — PlayBase{% endblock %}
+
+{% block content %}
+<div class="main-content narrow">
+  <div class="form-panel">
+    <h2>Recuperar senha</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <p style="text-align:center;color:var(--text-muted);font-size:0.9rem;position:relative;z-index:1;">
+      Digite seu e-mail e enviaremos um link para redefinir sua senha.
+    </p>
+
+    <form action="{{ url_for('jogos.esqueci_senha') }}" method="POST">
+      <div class="field-group">
+        <label>E-mail cadastrado</label>
+        <input type="email" name="email" placeholder="seu@email.com" required>
+      </div>
+      <button type="submit" class="btn-submit">Enviar link</button>
+    </form>
+
+    <div class="divider"></div>
+    <p class="auth-link"><a href="{{ url_for('jogos.login') }}">← Voltar ao login</a></p>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlayBase — Sua base de jogos</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <!-- NAVBAR (standalone, sem extends) -->
+  <nav class="navbar">
+    <a href="/jogos" class="navbar-brand">
+      <img src="/static/uploads/jogos/Copilot_20260408_155246-removebg-preview.png" alt="Logo">
+      PLAYBASE
+    </a>
+    <div class="navbar-links">
+      <a href="/jogos">Jogos</a>
+      <a href="/contato">Contato</a>
+    </div>
+    <div class="navbar-right">
+      <a href="/login">Login</a>
+      <a href="/cadastro_usuario">Cadastro</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzujwLm7jhifAb2rgeE9B5MXh7yPJ-ZTWFMuKlJ4MEoIwMDeCpQcRgf5TK2ledjkPAb75eNE7QjrFREB4i2QndtIr-5xChJpMq65v_MQffscZHe7xECaZG9wMvnrf51S2NpnTXfFi7JEP8xpGJ9ThcugvG8h7jZGPKjfjtpHm5SDmwnRYEVDCded1H73OSVZTF4oRwKsf9nybJtQqNnwhUNO4BB7zgBbkbSKshBwzzVOF_qzm8Xojy0uFtVFG7AXE11bYSmD_qMmeB" alt="Gaming">
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Sistema Online · v2.4.0
+      </div>
+
+      <h1 class="hero-title">
+        <span class="line-green">PLAY</span><br>
+        <span class="line-purple">BASE</span>
+      </h1>
+
+      <p class="hero-sub">
+        Descubra, catalogue e explore o universo dos jogos. A plataforma definitiva para gamers que levam seus games a sério.
+      </p>
+
+      <div class="hero-actions">
+        <a href="/cadastro_usuario" class="hero-btn-primary">
+          Começar agora →
+        </a>
+        <a href="/contato" class="hero-btn-ghost">
+          Entre em contato
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-value">24ms</span>
+        <span class="hero-stat-label">Latência</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value">1.2M</span>
+        <span class="hero-stat-label">Usuários</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value">Global</span>
+        <span class="hero-stat-label">Região</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value">99.9%</span>
+        <span class="hero-stat-label">Uptime</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED GAMES -->
+  <section class="featured-section">
+    <div class="featured-header">
+      <div>
+        <div class="featured-label">Em destaque</div>
+        <div class="featured-title">Jogos do Momento</div>
+      </div>
+      <a href="/jogos" class="featured-link">Ver todos →</a>
+    </div>
+
+    <!-- Grid manual dos jogos em destaque -->
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px;">
+
+      <!-- Card grande -->
+      <div class="card" style="grid-column:span 2; grid-row:span 2; border-radius:20px; overflow:hidden; position:relative;">
+        <div class="card-img-wrap" style="height:420px;">
+          <img src="/static/uploads/jogos/god of war.jpg" alt="God of War">
+        </div>
+        <div style="position:absolute; bottom:0; left:0; right:0; padding:28px;
+                    background:linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 100%);">
+          <div style="display:flex; gap:8px; margin-bottom:10px;">
+            <span class="tag tag-green">Trending</span>
+            <span class="tag tag-purple">Action RPG</span>
+          </div>
+          <div style="font-family:var(--fh); font-size:1.5rem; font-weight:800; margin-bottom:8px; letter-spacing:-0.02em;">GOD OF WAR: RAGNARÖK</div>
+          <div style="font-size:0.85rem; color:var(--text-muted); line-height:1.55; max-width:480px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">
+            A jornada de Kratos e Atreus pelos Nove Reinos continua enquanto o apocalipse nórdico se aproxima.
+          </div>
+        </div>
+      </div>
+
+      <!-- Card secundário 1 -->
+      <div class="card" style="border-radius:20px; overflow:hidden; position:relative;">
+        <div class="card-img-wrap" style="height:200px;">
+          <img src="/static/uploads/jogos/need for speed.jpg" alt="Need for Speed">
+        </div>
+        <div style="position:absolute; bottom:0; left:0; right:0; padding:18px;
+                    background:linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);">
+          <div style="font-family:var(--fh); font-size:0.95rem; font-weight:700; letter-spacing:-0.01em;">NEED FOR SPEED HEAT</div>
+          <div style="font-size:0.72rem; color:var(--green); margin-top:4px; font-family:var(--fh); font-weight:600;">98% Positive</div>
+        </div>
+      </div>
+
+      <!-- Card secundário 2 -->
+      <div class="card" style="border-radius:20px; overflow:hidden; position:relative;">
+        <div class="card-img-wrap" style="height:200px;">
+          <img src="/static/uploads/jogos/gta6.jpg" alt="GTA VI">
+        </div>
+        <div style="position:absolute; bottom:0; left:0; right:0; padding:18px;
+                    background:linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);">
+          <div style="font-family:var(--fh); font-size:0.95rem; font-weight:700; letter-spacing:-0.01em;">GTA VI</div>
+          <div style="font-size:0.72rem; color:var(--purple); margin-top:4px; font-family:var(--fh); font-weight:600;">Coming Soon</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <span class="footer-brand">PLAYBASE</span>
+    <div class="footer-links">
+      <a href="/jogos">Jogos</a>
+      <a href="/contato">Contato</a>
+      <a href="/login">Login</a>
+      <a href="/cadastro_usuario">Cadastro</a>
+    </div>
+    <span class="footer-copy">© 2026 PlayBase. Todos os direitos reservados.</span>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Editar Perfil — PlayBase{% endblock %}
+
+{% block content %}
+<div class="main-content narrow">
+  <div class="form-panel">
+    <h2>Editar Perfil</h2>
+
+    {% if usuario.foto %}
+      <div class="profile-pic">
+        <img src="/{{ usuario.foto }}" alt="Foto de perfil">
+      </div>
+    {% endif %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="post" enctype="multipart/form-data">
+      <div class="field-group">
+        <label>Nome</label>
+        <input type="text" name="nome" value="{{ usuario.nome }}" required>
+      </div>
+      <div class="field-group">
+        <label>Nova senha</label>
+        <input type="password" name="senha" placeholder="Deixe em branco para manter">
+      </div>
+      <div class="field-group">
+        <label>Confirmar nova senha</label>
+        <input type="password" name="confirmar" placeholder="••••••••">
+      </div>
+      <div class="field-group">
+        <label>Foto de perfil</label>
+        <input type="file" name="foto">
+      </div>
+      <button type="submit" class="btn-submit">Atualizar</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

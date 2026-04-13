@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Usuários — PlayBase{% endblock %}
+
+{% block content %}
+<div class="main-content medium">
+
+  <h1 class="section-title">👥 Usuários</h1>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }}" style="margin-bottom:20px;">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <div class="user-list">
+    {% for usuario in usuarios %}
+    <div class="user-card">
+      <div class="user-info">
+        <img src="/{{ usuario.foto }}" class="user-avatar {% if usuario.is_admin %}admin-border{% else %}user-border{% endif %}" alt="{{ usuario.nome }}">
+        <div>
+          <div class="user-name">{{ usuario.nome }}</div>
+          <div class="user-email">{{ usuario.email }}</div>
+          <div class="user-role {% if usuario.is_admin %}admin{% else %}common{% endif %}">
+            {% if usuario.is_admin %}⭐ Admin{% else %}Usuário{% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="user-actions">
+        {% if usuario.is_admin %}
+          <form method="post" action="{{ url_for('jogos.remover_admin', email=usuario.email) }}">
+            <button type="submit" class="btn btn-purple">Remover Admin</button>
+          </form>
+        {% else %}
+          <form method="post" action="{{ url_for('jogos.tornar_admin', email=usuario.email) }}">
+            <button type="submit" class="btn btn-primary">Tornar Admin</button>
+          </form>
+        {% endif %}
+        <form method="post" action="{{ url_for('jogos.excluir_usuario', email=usuario.email) }}"
+              onsubmit="return confirm('Excluir {{ usuario.nome }}?')">
+          <button type="submit" class="btn btn-danger">Excluir</button>
+        </form>
+      </div>
+    </div>
+    {% else %}
+    <p class="alert alert-info">Nenhum usuário cadastrado.</p>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}

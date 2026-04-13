@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}PlayBase{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="{{ url_for('jogos.listar_jogos') }}" class="navbar-brand">
+      <img src="/static/uploads/jogos/Copilot_20260408_155246-removebg-preview.png" alt="Logo">
+      PLAYBASE
+    </a>
+
+    <div class="navbar-links">
+      <a href="{{ url_for('jogos.listar_jogos') }}">Início</a>
+      {% if session.get('usuarioLogado') %}
+        <a href="{{ url_for('jogos.cadastrar_jogo') }}">+ Jogo</a>
+        {% if session.get('tipo') == 1 %}
+          <a href="{{ url_for('jogos.listar_categorias') }}">Categorias</a>
+          <a href="{{ url_for('jogos.listar_usuarios') }}">Usuários</a>
+        {% endif %}
+        <a href="{{ url_for('jogos.contato') }}">Contato</a>
+      {% endif %}
+    </div>
+
+    <div class="navbar-right">
+      {% if session.get('usuarioLogado') %}
+        <span class="navbar-user">{{ session['usuarioLogado'] }}</span>
+        {% if session.get('fotoUsuario') %}
+          <img src="/{{ session['fotoUsuario'] }}" alt="Foto" class="navbar-avatar">
+        {% endif %}
+        <a href="{{ url_for('jogos.perfil') }}">Perfil</a>
+        <a href="{{ url_for('jogos.logout') }}">Sair</a>
+      {% else %}
+        <a href="{{ url_for('jogos.login') }}">Login</a>
+        <a href="{{ url_for('jogos.cadastro_usuario') }}">Cadastro</a>
+      {% endif %}
+    </div>
+  </nav>
+
+  {% block content %}{% endblock %}
+
+  <footer class="site-footer">
+    <span class="footer-brand">PLAYBASE</span>
+    <div class="footer-links">
+      <a href="{{ url_for('jogos.listar_jogos') }}">Jogos</a>
+      {% if session.get('usuarioLogado') %}
+        <a href="{{ url_for('jogos.cadastrar_jogo') }}">Cadastrar</a>
+        <a href="{{ url_for('jogos.contato') }}">Contato</a>
+        <a href="{{ url_for('jogos.perfil') }}">Perfil</a>
+      {% else %}
+        <a href="{{ url_for('jogos.login') }}">Login</a>
+        <a href="{{ url_for('jogos.cadastro_usuario') }}">Cadastro</a>
+      {% endif %}
+    </div>
+    <span class="footer-copy">© 2026 PlayBase. Todos os direitos reservados.</span>
+  </footer>
+
+</body>
+</html>

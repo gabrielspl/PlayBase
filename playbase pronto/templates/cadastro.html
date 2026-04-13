@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Cadastro — PlayBase{% endblock %}
+
+{% block content %}
+<div class="main-content narrow">
+  <div class="form-panel">
+    <h2>Criar conta</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="post" enctype="multipart/form-data">
+      <div class="field-group">
+        <label>Nome</label>
+        <input type="text" name="nome" placeholder="Seu nome" required>
+      </div>
+      <div class="field-group">
+        <label>E-mail</label>
+        <input type="email" name="email" placeholder="seu@email.com" required>
+      </div>
+      <div class="field-group">
+        <label>Foto de perfil</label>
+        <input type="file" name="foto">
+      </div>
+      <div class="field-group">
+        <label>Senha</label>
+        <input type="password" name="senha" placeholder="••••••••" required>
+      </div>
+      <div class="field-group">
+        <label>Confirmar senha</label>
+        <input type="password" name="confirmar_senha" placeholder="••••••••" required>
+      </div>
+      <button type="submit" class="btn-submit">Cadastrar</button>
+    </form>
+
+    <div class="divider"></div>
+    <p class="auth-link">Já tem conta? <a href="{{ url_for('jogos.login') }}">Fazer login</a></p>
+  </div>
+</div>
+{% endblock %}

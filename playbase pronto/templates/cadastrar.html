@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Cadastrar Jogo — PlayBase{% endblock %}
+
+{% block content %}
+<div class="main-content narrow">
+  <div class="form-panel">
+    <h2>Cadastrar Jogo</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="post" enctype="multipart/form-data">
+      <div class="field-group">
+        <label>Nome do jogo</label>
+        <input type="text" name="nome" placeholder="ex: God of War Ragnarök" required>
+      </div>
+      <div class="field-group">
+        <label>Desenvolvedora</label>
+        <input type="text" name="desenvolvedora" placeholder="ex: Santa Monica Studio" required>
+      </div>
+      <div class="field-group">
+        <label>Data de lançamento</label>
+        <input type="date" name="dataLancamento" required>
+      </div>
+      <div class="field-group">
+        <label>Gênero</label>
+        <input type="text" name="genero" placeholder="ex: Action RPG" required>
+      </div>
+      <div class="field-group">
+        <label>Categoria</label>
+        <select name="categoria_id">
+          {% for c in categorias %}
+            <option value="{{ c.id }}">{{ c.nome }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Plataformas</label>
+        <input type="text" name="plataformas" placeholder="ex: PS5, PC" required>
+      </div>
+      <div class="field-group">
+        <label>Sinopse</label>
+        <textarea name="sinopse" placeholder="Descreva o jogo..." rows="5" required></textarea>
+      </div>
+      <div class="field-group">
+        <label>Imagem de capa</label>
+        <input type="file" name="imagem">
+      </div>
+
+      <div class="tags-group">
+        <span class="tags-label">🏷️ Tags</span>
+        <label class="tag-check">
+          <input type="checkbox" name="tag_lancamento" value="1" style="accent-color:#00FF66;">
+          🚀 Lançamento
+        </label>
+        <label class="tag-check">
+          <input type="checkbox" name="tag_destaque" value="1" style="accent-color:#C77DFF;">
+          ⭐ Destaque
+        </label>
+        <label class="tag-check">
+          <input type="checkbox" name="tag_promocao" value="1" style="accent-color:#ffd166;">
+          🔥 Promoção
+        </label>
+      </div>
+
+      <button type="submit" class="btn-submit">Cadastrar Jogo</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
